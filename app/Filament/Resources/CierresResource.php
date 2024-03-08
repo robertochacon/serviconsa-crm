@@ -32,7 +32,7 @@ class CierresResource extends Resource
 {
     protected static ?string $model = Closing::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
     protected static ?string $navigationGroup = 'Cierres';
 
@@ -62,14 +62,14 @@ class CierresResource extends Resource
                                     ->reactive()
                                     ->afterStateUpdated(function ($state, callable $set, Get $get){
                                         $total = ($state * $get('meters'));
-                                        $set('total', number_format($total,2));
+                                        $set('total', $total);
                                     }),
                                     TextInput::make('meters')->numeric()->label('Cantidad de metros')
                                     ->minValue(1)
                                     ->reactive()
                                     ->afterStateUpdated(function ($state, callable $set, Get $get){
                                         $total = ($state * $get('do'));
-                                        $set('total', number_format($total,2));
+                                        $set('total', $total);
                                     }),
                                     TextInput::make('total')->readOnly()->numeric()->label('Total'),
                                 ])
@@ -94,7 +94,7 @@ class CierresResource extends Resource
                                             $sum_total += $item['total'];
                                         }
                                         $set('total_do', $sum_total);
-                                        return number_format($sum_total,2);
+                                        return $sum_total;
                                     })
                                 ])->columns(4),
                             ])
@@ -109,11 +109,11 @@ class CierresResource extends Resource
             ->columns([
                 TextColumn::make('provider')->label('Proveedro')
                 ->searchable(),
+                TextColumn::make('total_meters')->suffix(' mt')->label('Total en metros'),
+                TextColumn::make('total_do')->money('usd')->label('Total en pesos'),
                 TextColumn::make('date')->label('Fecha')
                 ->date("d/m/Y")
                 ->searchable(),
-                TextColumn::make('total_meters')->label('Total en metros'),
-                TextColumn::make('total_do')->money('usd')->label('Total en pesos'),
             ])
             ->filters([
                 Filter::make('date')

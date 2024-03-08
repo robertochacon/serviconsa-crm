@@ -19,6 +19,12 @@ class Start extends Seeder
             'password' => bcrypt("admin")
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Carla',
+            'email' => 'carla@gmail.com',
+            'password' => bcrypt("carla")
+        ]);
+
         DB::table('providers')->insert([
             'name' => 'Hormigones Bonao',
             'phone' => null,
