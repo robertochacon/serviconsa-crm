@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -49,15 +50,7 @@ class User extends Authenticatable
         return true;
     }
 
-    // public function isSuper(): bool {
-    //     return $this->type === 'super' ?? false;
-    // }
-
-    // public function isAdmin(): bool {
-    //     return $this->type === 'admin' ?? false;
-    // }
-
-    // public function isDoctor(): bool {
-    //     return $this->type === 'doctor' ?? false;
-    // }
+    public function isAdmin(): bool {
+        return $this->role === 'admin' ?? false;
+    }
 }

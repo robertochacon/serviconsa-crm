@@ -46,6 +46,7 @@ class ProviderResource extends Resource
                 ->searchable(),
                 TextColumn::make('phone')->label('Teléfono')
                 ->searchable(),
+                TextColumn::make('created_at')->label('Fecha')->since(),
                 ToggleColumn::make('status')
             ])
             ->filters([
@@ -67,5 +68,10 @@ class ProviderResource extends Resource
         return [
             'index' => Pages\ManageProviders::route('/'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

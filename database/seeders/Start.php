@@ -13,21 +13,27 @@ class Start extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            'name' => 'Start',
+        DB::table('users')->insert([[
+            'name' => 'Administrador',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt("admin")
-        ]);
-
-        DB::table('users')->insert([
+            'password' => bcrypt("admin"),
+            'role' => "admin",
+            "created_at" =>  date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'),
+        ],[
             'name' => 'Carla',
             'email' => 'carla@gmail.com',
-            'password' => bcrypt("carla")
-        ]);
+            'password' => bcrypt("carla"),
+            'role' => "user",
+            "created_at" =>  date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'),
+        ]]);
 
-        DB::table('providers')->insert([
+        DB::table('providers')->insert([[
             'name' => 'Hormigones Bonao',
             'phone' => null,
-        ]);
+            "created_at" =>  date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'),
+        ]]);
     }
 }
