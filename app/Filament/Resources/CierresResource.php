@@ -72,8 +72,9 @@ class CierresResource extends Resource
                                         $set('total', $total);
                                     }),
                                     TextInput::make('total')->readOnly()->numeric()->label('Total'),
+                                    DatePicker::make('date')->label("Fecha"),
                                 ])
-                                ->columns(4),
+                                ->columns(5),
                                 Section::make()
                                 ->schema([
                                     Hidden::make('total_meters'),
