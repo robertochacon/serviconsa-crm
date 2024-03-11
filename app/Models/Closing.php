@@ -16,6 +16,6 @@ class Closing extends Model
     ];
 
     protected $fillable = [
-        'provider','services','meters','total_meters','total_do','date','status',
+        'provider','services','meters','total_meters','total_do','pending','date','status',
     ];
 }

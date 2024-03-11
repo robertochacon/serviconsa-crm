@@ -96,7 +96,8 @@ class CierresResource extends Resource
                                         }
                                         $set('total_do', $sum_total);
                                         return $sum_total;
-                                    })
+                                    }),
+                                    TextInput::make('pending')->numeric()->label('Balance pendiente')
                                 ])->columns(4),
                             ])
                         ])
@@ -108,10 +109,11 @@ class CierresResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('provider')->label('Proveedro')
+                TextColumn::make('provider')->label('Proveedor')
                 ->searchable(),
                 TextColumn::make('total_meters')->suffix(' mt')->label('Total en metros'),
                 TextColumn::make('total_do')->money('usd')->label('Total en pesos'),
+                TextColumn::make('pending')->money('usd')->label('Balance pendiente')->default(0),
                 TextColumn::make('date')->label('Fecha')
                 ->date("d/m/Y")
                 ->searchable(),
