@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClosingReportController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,5 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return redirect('/admin/login');
 })->name('login');
+
+Route::get('/{record}/report', [ClosingReportController::class, 'report'])->name('report.pdf.download');

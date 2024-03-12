@@ -27,6 +27,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class CierresResource extends Resource
 {
@@ -137,6 +138,10 @@ class CierresResource extends Resource
                 })
             ])
             ->actions([
+                Tables\Actions\Action::make('Reporte')
+                ->icon('heroicon-o-arrow-down-on-square-stack')
+                ->url(fn(Closing $record) => route('report.pdf.download', $record))
+                ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()->label("Eliminar"),
             ])
