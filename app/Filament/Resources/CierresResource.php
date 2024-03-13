@@ -60,6 +60,7 @@ class CierresResource extends Resource
                                 ->schema([
                                     TextInput::make('place')->label('Lugar'),
                                     TextInput::make('do')->numeric()->label('Pesos por metro')
+                                    ->minValue(1)
                                     ->reactive()
                                     ->afterStateUpdated(function ($state, callable $set, Get $get){
                                         $total = ($state * $get('meters'));
@@ -84,6 +85,9 @@ class CierresResource extends Resource
                                     ->content(function ($get, Set $set) {
                                         $sum_meters = 0;
                                         foreach ($get('services') as $item) {
+                                            if (empty($item['meters'])) {
+                                                continue;
+                                            }
                                             $sum_meters += $item['meters'];
                                         }
                                         $set('total_meters', $sum_meters);
@@ -93,10 +97,13 @@ class CierresResource extends Resource
                                     ->content(function ($get, Set $set) {
                                         $sum_total = 0;
                                         foreach ($get('services') as $item) {
+                                            if (empty($item['total'])) {
+                                                continue;
+                                            }
                                             $sum_total += $item['total'];
                                         }
                                         $set('total_do', $sum_total);
-                                        return $sum_total;
+                                        return number_format($sum_total, 2);
                                     }),
                                     TextInput::make('pending')->numeric()->label('Balance pendiente')
                                 ])->columns(4),
