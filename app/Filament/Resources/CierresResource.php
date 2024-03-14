@@ -59,21 +59,35 @@ class CierresResource extends Resource
                                 Repeater::make('services')->label('Servicios')
                                 ->schema([
                                     TextInput::make('place')->label('Lugar'),
-                                    TextInput::make('do')->numeric()->label('Pesos por metro')
+                                    TextInput::make('do')
+                                    ->numeric()
+                                    ->default(1)
+                                    ->label('Pesos por metro')
                                     ->minValue(1)
                                     ->reactive()
+                                    ->debounce(1000)
+                                    ->currencyMask(thousandSeparator: ',',decimalSeparator: '.',precision: 2)
                                     ->afterStateUpdated(function ($state, callable $set, Get $get){
-                                        $total = ($state * $get('meters'));
-                                        $set('total', $total);
+                                        $set('total', ($state * $get('meters')));
                                     }),
-                                    TextInput::make('meters')->numeric()->label('Cantidad de metros')
+                                    TextInput::make('meters')
+                                    ->numeric()
+                                    ->default(1)
+                                    ->inputMode('decimal')
+                                    ->label('Cantidad de metros')
                                     ->minValue(1)
                                     ->reactive()
+                                    ->debounce(1000)
+                                    ->currencyMask(thousandSeparator: ',',decimalSeparator: '.',precision: 2)
                                     ->afterStateUpdated(function ($state, callable $set, Get $get){
-                                        $total = ($state * $get('do'));
-                                        $set('total', $total);
+                                        $set('total', ($state * $get('do')));
                                     }),
-                                    TextInput::make('total')->readOnly()->numeric()->label('Total'),
+                                    TextInput::make('total')
+                                    ->readOnly()
+                                    ->numeric()
+                                    ->live()
+                                    ->label('Total')
+                                    ->currencyMask(thousandSeparator: ',',decimalSeparator: '.',precision: 2),
                                     DatePicker::make('date')->label("Fecha"),
                                 ])
                                 ->columns(5),
@@ -91,7 +105,7 @@ class CierresResource extends Resource
                                             $sum_meters += $item['meters'];
                                         }
                                         $set('total_meters', $sum_meters);
-                                        return $sum_meters." mt";
+                                        return number_format($sum_meters, 0)." mt";
                                     }),
                                     Placeholder::make('Total en pesos')
                                     ->content(function ($get, Set $set) {
@@ -106,6 +120,7 @@ class CierresResource extends Resource
                                         return number_format($sum_total, 2);
                                     }),
                                     TextInput::make('pending')->numeric()->label('Balance pendiente')
+                                    ->currencyMask(thousandSeparator: ',',decimalSeparator: '.',precision: 2)
                                 ])->columns(4),
                             ])
                         ])
