@@ -21,24 +21,30 @@
 </style>
 <body>
 
+    {{-- Header --}}
+    @if($invoice->logo)
+        <img src="{{ $invoice->getLogo() }}" alt="logo" height="100">
+    @endif
+
     <center>
         <h2>Reporte de servicios</h2>
     </center>
 
     <h3><b>Proveedor</b> - {{ $invoice->buyer->provider }}</h3>
     <hr>
-    <h4><b>Total en metros:</b> {{ $invoice->buyer->meters }}</h4>
-    <h4><b>Total de generado:</b> {{ number_format($invoice->buyer->total, 2) }}</h4>
+    <h4><b>Total gral. en metros:</b> {{ $invoice->buyer->meters }}</h4>
+    <h4><b>Total gral. en pesos generado:</b> {{ number_format($invoice->buyer->total, 2) }}</h4>
     <h4><b>Balance pendiente:</b> {{ number_format($invoice->buyer->pending, 2) }}</h4>
 
     <table class="table" style="width:100%">
         <caption><h4>Lista de servicios realizados</h4></caption>
         <thead>
           <tr>
+            <th scope="col">#</th>
             <th scope="col" style="width:30%">Lugar</th>
             <th scope="col">Metros</th>
             <th scope="col">Pesos</th>
-            <th scope="col">Pendiente</th>
+            <th scope="col">Sub total</th>
             <th scope="col">Fecha</th>
           </tr>
         </thead>
@@ -46,6 +52,7 @@
 
           @foreach($invoice->buyer->services as $key => $value)
             <tr>
+              <td style="text-align: center;">{{ $key+1 }}</td>
               <td>{{ $value["place"] }}</td>
               <td>{{ $value["meters"]." mt" }}</td>
               <td>{{ number_format($value["do"], 2) }}</td>

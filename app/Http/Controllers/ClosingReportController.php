@@ -28,6 +28,7 @@ class ClosingReportController extends Controller
         $invoice = Invoice::make()
             ->buyer($customer)
             ->addItem($item)
+            ->logo(public_path('vendor/invoices/logo.png'))
             ->template('closing_report');
 
         return $invoice->stream();
