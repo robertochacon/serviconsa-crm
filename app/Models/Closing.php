@@ -13,9 +13,10 @@ class Closing extends Model
 
     protected $casts = [
         'services' => 'array',
+        'payments' => 'array',
     ];
 
     protected $fillable = [
-        'provider','services','meters','total_meters','total_do','pending','date','status',
+        'provider','services','meters','total_meters','total_do','payments','pending','date','status',
     ];
 }

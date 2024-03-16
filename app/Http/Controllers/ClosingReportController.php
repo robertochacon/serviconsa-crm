@@ -18,6 +18,7 @@ class ClosingReportController extends Controller
         $customer = new Buyer([
             'provider' => $closing["provider"],
             'services' => $closing["services"],
+            'payments' => $closing["payments"],
             'total' => $closing["total_do"],
             'meters' => $closing["total_meters"],
             'pending' => $closing["pending"],

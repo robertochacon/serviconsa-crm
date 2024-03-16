@@ -62,8 +62,31 @@
           @endforeach
 
         </tbody>
-      </table>
+    </table>
 
+    <table class="table" style="width:100%">
+        <caption><h4>Lista de pagos realizados</h4></caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Via de pago</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          @foreach($invoice->buyer->payments as $key => $value)
+            <tr>
+              <td style="text-align: center;">{{ $key+1 }}</td>
+              <td>{{ number_format($value["amount"], 2) }}</td>
+              <td>{{ $value["type"] }}</td>
+              <td>{{ date('d-m-Y', strtotime($value["date"])) }}</td>
+            </tr>
+          @endforeach
+
+        </tbody>
+    </table>
 
     <script type="text/php">
         if (isset($pdf) && $PAGE_COUNT > 1) {
