@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer("meters")->nullable();
             $table->integer("total_meters")->nullable();
             $table->integer("total_do")->nullable();
-            $table->integer("payments")->nullable();
+            $table->json("payments")->nullable();
             $table->integer("pending")->nullable();
             $table->date("date")->nullable();
             $table->boolean('status')->default(true);
