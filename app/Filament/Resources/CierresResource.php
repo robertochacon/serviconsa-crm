@@ -125,6 +125,7 @@ class CierresResource extends Resource
                                 TextInput::make('amount')
                                 ->label("Monto en pesos")
                                 ->numeric()
+                                ->inputMode('decimal')
                                 ->minValue(1)
                                 ->reactive()
                                 ->debounce(1000)
